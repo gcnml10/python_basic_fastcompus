@@ -49,7 +49,7 @@ b = 'orange'
 # print(b.endswith('e'))
 # print(a.capitalize())
 # print(a.replace('nice','good'))
-# print(list(reversed(b)))
+# print(list(reversed(b)))s
 # print(reversed(b))
 
 print(a[0:3])
@@ -60,3 +60,4 @@ print(a[:])
 print(b[0:4:2])
 print(b[1:-2])
 print(b[::-1])
+
