@@ -137,7 +137,7 @@ int msync(void *start, size_t length, int flags);
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
-int stat(const char *path, struct stat *buf);
+int stat(const char *path, struct stat *buf); // path가 가리키는 파일의 inode 자료구조 데이터를 구조체 변수에 넣어줌
 int fstat(int filedes, struct stat *buf);
 ```
 > fopen/read/write 등 기본 파일 시스템콜은 C언어 과목에서 다룸
