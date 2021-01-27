@@ -142,6 +142,11 @@ int fstat(int filedes, struct stat *buf);
 ```
 > fopen/read/write 등 기본 파일 시스템콜은 C언어 과목에서 다룸
 
+### inode 방식 파일 시스템
+- 프로세스에 pid가 있는 것 처럼 파일에도 inode번호가 있고 그 번호에 대응하는 inode 구조체를 가지고 있음
+- Mode(파일 종류, 권한), Owner info(소유자 정보), Size(파일 사이즈), Timestamps(생성 및 수정 시간 정보)
+- Direct blocks에는 어디에 해당 데이터가 저장되어 있는지 알려주는 직접 주소
+- Single, Double, Triple은 간접적으로 나태내는 간접주소 (뒤로 갈수록 더더더 간접적으로)
 
 
 
