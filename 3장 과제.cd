@@ -1,0 +1,175 @@
+[laon@localhost src]$ gcc -g -o main main.c copy.c
+main.c: In function ‘main’:
+main.c:11:2: warning: ‘gets’ is deprecated (declared at /usr/include/stdio.h:638) [-Wdeprecated-declarations]
+  while(gets(line) != NULL){
+  ^
+main.c:12:9: warning: incompatible implicit declaration of built-in function ‘strlen’ [enabled by default]
+   len = strlen(line);
+         ^
+/tmp/cc3HRMPv.o: In function `main':
+/home/laon/src/main.c:11: warning: the `gets' function is dangerous and should not be used.
+[laon@localhost src]$ ls
+a.out  copy.c  copy.h  longest  longest.c  main  main.c  sample.c  sample10  sample10.c  sample2.c  sample3.c  sample4  sample4.c  sample5  sample5.c  sample6  sample6.c  sample8  sample8.c
+[laon@localhost src]$ ./main
+hello world
+hahahahahahaha
+^C
+[laon@localhost src]$ gdb main
+GNU gdb (GDB) Red Hat Enterprise Linux 7.6.1-120.el7
+Copyright (C) 2013 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-redhat-linux-gnu".
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>...
+Reading symbols from /home/laon/src/main...done.
+(gdb) l copy
+1	#include <stdio.h>
+2	#include "copy.h"
+3	
+4	void copy(char from[], char to[])
+5	{
+6		int i;
+7		i = 0;
+8		while ((to[i] = from[i]) != '\0')
+9			++i;
+10	}
+(gdb) b copy
+Breakpoint 1 at 0x400634: file copy.c, line 7.
+(gdb) info b
+Num     Type           Disp Enb Address            What
+1       breakpoint     keep y   0x0000000000400634 in copy at copy.c:7
+(gdb) r
+Starting program: /home/laon/src/main 
+hello world!
+
+Breakpoint 1, copy (from=0x601100 <line> "hello world!", to=0x601080 <longest> "") at copy.c:7
+7		i = 0;
+Missing separate debuginfos, use: debuginfo-install glibc-2.17-323.el7_9.x86_64
+(gdb) r
+The program being debugged has been started already.
+Start it from the beginning? (y or n) n
+Program not restarted.
+(gdb) n
+8		while ((to[i] = from[i]) != '\0')
+(gdb) s
+9			++i;
+(gdb) n
+8		while ((to[i] = from[i]) != '\0')
+(gdb) n
+9			++i;
+(gdb) n
+8		while ((to[i] = from[i]) != '\0')
+(gdb) c
+Continuing.
+merry christmas world!
+
+Breakpoint 1, copy (from=0x601100 <line> "merry christmas world!", to=0x601080 <longest> "hello world!") at copy.c:7
+7		i = 0;
+(gdb) finish
+Run till exit from #0  copy (from=0x601100 <line> "merry christmas world!", to=0x601080 <longest> "hello world!") at copy.c:7
+main () at main.c:11
+11		while(gets(line) != NULL){
+(gdb) return
+Make main return now? (y or n) y
+#0  0x00007ffff7a2f555 in __libc_start_main () from /lib64/libc.so.6
+(gdb) r
+The program being debugged has been started already.
+Start it from the beginning? (y or n) n
+Program not restarted.
+(gdb) n
+Single stepping until exit from function __libc_start_main,
+which has no line number information.
+[Inferior 1 (process 3446) exited normally]
+(gdb) s
+The program is not being run.
+(gdb) r
+Starting program: /home/laon/src/main 
+abcdefg   
+
+Breakpoint 1, copy (from=0x601100 <line> "abcdefg", to=0x601080 <longest> "") at copy.c:7
+7		i = 0;
+(gdb) k
+Kill the program being debugged? (y or n) y
+[Inferior 1 (process 3480) killed]
+(gdb) p from
+No symbol "from" in current context.
+(gdb) r
+Starting program: /home/laon/src/main 
+hello world!
+
+Breakpoint 1, copy (from=0x601100 <line> "hello world!", to=0x601080 <longest> "") at copy.c:7
+7		i = 0;
+(gdb) p from
+$1 = 0x601100 <line> "hello world!"
+(gdb) p to
+$2 = 0x601080 <longest> ""
+(gdb) n
+8		while ((to[i] = from[i]) != '\0')
+(gdb) continue
+Continuing.
+abcdefgh
+
+n
+p from
+hello world![Inferior 1 (process 3489) exited normally]
+(gdb) r
+Starting program: /home/laon/src/main 
+hello
+
+Breakpoint 1, copy (from=0x601100 <line> "hello", to=0x601080 <longest> "") at copy.c:7
+7		i = 0;
+(gdb) p from
+$3 = 0x601100 <line> "hello"
+(gdb) n
+8		while ((to[i] = from[i]) != '\0')
+(gdb) n
+9			++i;
+(gdb) p to
+$4 = 0x601080 <longest> "h"
+(gdb) s
+8		while ((to[i] = from[i]) != '\0')
+(gdb) p to
+$5 = 0x601080 <longest> "h"
+(gdb) s
+9			++i;
+(gdb) s
+8		while ((to[i] = from[i]) != '\0')
+(gdb) p to
+$6 = 0x601080 <longest> "he"
+(gdb) c
+Continuing.
+happy system!
+
+Breakpoint 1, copy (from=0x601100 <line> "happy system!", to=0x601080 <longest> "hello") at copy.c:7
+7		i = 0;
+(gdb) p from
+$7 = 0x601100 <line> "happy system!"
+(gdb) p to
+$8 = 0x601080 <longest> "hello"
+(gdb) n
+8		while ((to[i] = from[i]) != '\0')
+(gdb) tp to
+Function "to" not defined.
+Make tracepoint pending on future shared library load? (y or [n]) n
+(gdb) p to
+$9 = 0x601080 <longest> "hello"
+(gdb) n
+9			++i;
+(gdb) p to
+$10 = 0x601080 <longest> "hello"
+(gdb) n
+8		while ((to[i] = from[i]) != '\0')
+(gdb) p to
+$11 = 0x601080 <longest> "hello"
+(gdb) n
+9			++i;
+(gdb) p to
+$12 = 0x601080 <longest> "hallo"
+(gdb) c
+Continuing.
+happy system![Inferior 1 (process 3498) exited normally]
+(gdb) ^CQuit
+(gdb) quit
